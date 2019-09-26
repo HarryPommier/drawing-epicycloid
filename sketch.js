@@ -23,8 +23,8 @@ function setup() {
 	frameRate(40);
 	background(0);
 
-	radii = [50, 40, 30, 20];
-	rotationRate = [1, 4, 1, 4];
+	radii = [50, 40, 10, 10];
+	rotationRate = [1, 1, 16, 1];
 	phases = [0, PI/4, -PI/8, 0];
 	centers[0][0] = width/2;
 	centers[1][0] = height/2;
@@ -32,7 +32,6 @@ function setup() {
 	initCircleCenters(centers, radii, rotationRate, phases);
 	print(drawing);
 	initCurve(drawing, centers);
-
 }
 
 function draw() {
@@ -44,9 +43,13 @@ function draw() {
 	drawCurve(drawing, colorDrawing);
 	
 	//Increment 
-	t += deltaTime/1000;
+	t += deltaTime/2000;
 
 	//Update
 	updateCircleCenters(centers, radii, rotationRate, phases, t);
 	updateCurve(drawing, centers);
+}
+
+function mousePressed() {
+	noLoop();
 }
