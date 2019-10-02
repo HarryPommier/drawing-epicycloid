@@ -26,36 +26,45 @@ var colorsY = [];
 
 var stringPara;
 var para = [];
+var offsetX;
+var offsetY;
 
 function preload() {
   	stringPara = loadStrings('assets/elephant.txt', pickString);
+  	//stringPara = loadStrings('assets/flower.txt', pickString);
+  	//stringPara = loadStrings('assets/figtest.txt', pickString);
 }
 
 function pickString(result) {
-	for (i=0; i<result.length; i++) {
+	for (i=0; i<result.length-1; i++) {
 		para.push(stringPara[i].split(' '));
 	}
 
 	para = transpose(para);
 
-	print(para);
-
 	for (i=0; i<para.length; i++) {
 		for (j=0; j<para[0].length; j++) {
-			para[i][j] = float(para[i][j])*50;
+			para[i][j] = float(para[i][j]);
 		}
 	}
+
+	offsetX = para[0][0];
+	offsetY = para[2][0];
+	//print(offsetX)
+	//print(offsetY)
+	//x = offsetX + radiiX[1]*cos(1*t + phaseX[1] + ... + radiiX[n]*cos(n*t + phaseX[n]))
+	//y = offsetY + radiiY[1]*sin(1*t + phaseY[1] + ... + radiiY[n]*sin(n*t + phaseY[n]))
+
 }
 
+//TODO put this function ouside sketch.js
 function transpose(matrix) {
   return matrix[0].map((col, i) => matrix.map(row => row[i]));
 }
 
-//TODO debug check with simple epicycloid
-
 function setup() {
 	//General setup
-	createCanvas(1000, 1000);
+	createCanvas(1000, 700);
 	t= 0;
 	frameRate(40);
 	background(0);
@@ -67,63 +76,61 @@ function setup() {
 	colorsY["segment"] = [255, 255, 0];
 	colors["drawing"] = [255, 0, 0];
 
- 	//np.savetxt("para.txt", np.transpose([axcos, thetax, aysin, thetay]))
-
 	//Epicycloid parameters
 	//radiiX = [50, 40, 10, 0];
 	//radiiY = [100, 40, 30, 0];
 	radiiX = para[0];
 	radiiY = para[2];
+
+	//scale radii
+	s = 100;
+	offsetX = width/2;
+	offsetY = height/2;
+	for (i=0; i<radiiX.length; i++) {
+		radiiX[i] = radiiX[i]*s;
+		radiiY[i] = radiiY[i]*s;
+	}
+
 	//rotationRateX = [1, 1, 16, 1];
+	//TODO clean the part below
 	rotationRateX = [...Array(radiiX.length).keys()];
-	for (k=0; k<rotationRateX.length; k++) {
-		rotationRateX[k] += 1; 
-	}
 	rotationRateY = [...Array(radiiY.length).keys()];
-	for (k=0; k<rotationRateY.length; k++) {
-		rotationRateY[k] += 1; 
-	}
-	print(rotationRateX)
-	//rotationRateY = [2, 3, 10, 1];
-	//phasesX = [0, PI/4, -PI/8, 0];
-	//phasesY = [0, PI, -PI/5, 0];
+
 	phasesX = para[1]; 
 	phasesY = para[3]; 
-	centersX[0][0] = width/2;
-	centersX[1][0] = height/10;
-	centersY[0][0] = width/10;
-	centersY[1][0] = height/2;
+
+
+	//centersX[0][0] = radiiX[0];
+	//centersX[1][0] = 0; 
+	//centersY[0][0] = radiiX[0];
+	//centersY[1][0] = 0;
 
 	//Initialisation
-	initCircleCenters(centersX, radiiX, rotationRateX, phasesX);
-	initCircleCenters(centersY, radiiY, rotationRateY, phasesY);
-	initCurve(drawing, centersX);
-	initCurve(drawing, centersY);
+	initCircleCentersX(offsetX, centersX, radiiX, rotationRateX, phasesX);
+	initCircleCentersY(offsetY, centersY, radiiY, rotationRateY, phasesY);
 }
 
 function draw() {
 	background(0);
 
 	//Draw bunch X 
-	drawBunchX(centersX, radiiX, rotationRateX, phasesX, drawing, colorsX);
+	drawBunchX(centersX, radiiX, rotationRateX, phasesX, colorsX);
 
-	//TODO Draw bunch Y
-	drawBunchY(centersY, radiiY, rotationRateY, phasesY, drawing, colorsY);
+	//Draw bunch Y
+	drawBunchY(centersY, radiiY, rotationRateY, phasesY, colorsY);
 	
-	//TODO Draw X pencil
-	//TODO Draw Y pencil
-	//TODO Draw drawing, delete drawing in older functions
+	//Draw drawing
 	drawCurve(drawing, colors.drawing);
 
 	//Increment 
-	t += deltaTime/500;
+	t += deltaTime/1000;
 
 	//Update
 	//TODO replace those two lines by the new function updateBunch
 	updateCircleCenters(centersX, radiiX, rotationRateX, phasesX, t);
 	updateCircleCenters(centersY, radiiY, rotationRateY, phasesY, t);
-	updateCurve(drawing, centersY);
-	updateCurve(drawing, centersY);
+	updateCurve(drawing, offsetX+radiiX[0], offsetY, radiiX, radiiY, phasesX, phasesY, t);
+	//print(drawing)
 }
 
 function mousePressed() {
