@@ -30,7 +30,9 @@ var offsetX;
 var offsetY;
 
 function preload() {
-  	stringPara = loadStrings('assets/elephant.txt', pickString);
+  	//stringPara = loadStrings('assets/elephant.txt', pickString);
+  	stringPara = loadStrings('assets/el.txt', pickString);
+  	//stringPara = loadStrings('assets/zenika.txt', pickString);
   	//stringPara = loadStrings('assets/flower.txt', pickString);
   	//stringPara = loadStrings('assets/figtest.txt', pickString);
 }
@@ -64,17 +66,18 @@ function transpose(matrix) {
 
 function setup() {
 	//General setup
-	createCanvas(1000, 700);
+	createCanvas(1400, 1000);
 	t= 0;
 	frameRate(40);
-	background(0);
+	background(255);
 
 	//Graphics
-	colorsX["circle"] = 255;
-	colorsX["segment"] = [255, 255, 0];
-	colorsY["circle"] = 255;
-	colorsY["segment"] = [255, 255, 0];
-	colors["drawing"] = [255, 0, 0];
+	colorsX["circle"] = 150;
+	colorsX["segment"] = 0;
+	colorsY["circle"] = 150;
+	colorsY["segment"] = 0; 
+	colors["drawing"] = [0, 0, 255];
+	strokeWeight(4);
 
 	//Epicycloid parameters
 	//radiiX = [50, 40, 10, 0];
@@ -83,7 +86,7 @@ function setup() {
 	radiiY = para[2];
 
 	//scale radii
-	s = 100;
+	s = 400;
 	offsetX = width/2;
 	offsetY = height/2;
 	for (i=0; i<radiiX.length; i++) {
@@ -111,7 +114,7 @@ function setup() {
 }
 
 function draw() {
-	background(0);
+	background(255);
 
 	//Draw bunch X 
 	drawBunchX(centersX, radiiX, rotationRateX, phasesX, colorsX);
@@ -123,7 +126,7 @@ function draw() {
 	drawCurve(drawing, colors.drawing);
 
 	//Increment 
-	t += deltaTime/1000;
+	t += deltaTime/500;
 
 	//Update
 	//TODO replace those two lines by the new function updateBunch
