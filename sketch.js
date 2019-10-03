@@ -30,6 +30,7 @@ var offsetX;
 var offsetY;
 
 var nSlider;
+var n;
 
 
 function preload() {
@@ -50,8 +51,9 @@ function setup() {
 	colorsX["axis"] = 255;
 	colorsY = colorsX;
 	colors["drawing"] = [255, 0, 0];
-	colors["background"] = 0;
+	colors["background"] = 100;
 	strokeWeight(3);
+	textSize(100);
 
 	//General setup
 	createCanvas(windowWidth, windowHeight);
@@ -90,6 +92,9 @@ function setup() {
 
 function draw() {
 	background(colors.background);
+	//n = nSlider.value();
+	n = 9;
+	//TODO print n besides bar + update circles
 
 	//Draw bunch X 
 	drawBunchX(centersX, radiiX, rotationRateX, phasesX, colorsX);
@@ -106,10 +111,10 @@ function draw() {
 	//Update
 	updateCircleCenters(centersX, radiiX, rotationRateX, phasesX, t);
 	updateCircleCenters(centersY, radiiY, rotationRateY, phasesY, t);
-	updateCurve(drawing, offsetX+radiiX[0], offsetY, radiiX, radiiY, phasesX, phasesY, t);
+	updateCurve(drawing, offsetX+radiiX[0], offsetY, radiiX, radiiY, phasesX, phasesY, t, n);
 }
 
-function mousePressed() {
+function keyPressed() {
 	noLoop();
 }
 
