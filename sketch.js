@@ -29,6 +29,8 @@ var para = [];
 var offsetX;
 var offsetY;
 
+var nSlider;
+
 
 function preload() {
   	stringPara = loadStrings('assets/elephant.txt', pickString);
@@ -39,6 +41,8 @@ function preload() {
 function setup() {
 	//Increment
 	t= 0;
+	//Step ~[0.5 ; 5] (1 seems usually good enough)
+	step = 2.; 
 
 	//Graphics
 	colorsX["circle"] = 150;
@@ -59,7 +63,8 @@ function setup() {
 	radiiX = para[0];
 	radiiY = para[2];
 
-	//scale radii
+	//Scale radii
+	//TODO implement autoscale
 	s = 500;
 	offsetX = width/2;
 	offsetY = 2*height/3;
@@ -68,7 +73,6 @@ function setup() {
 		radiiY[i] = radiiY[i]*s;
 	}
 
-	//rotationRateX = [1, 1, 16, 1];
 	rotationRateX = [...Array(radiiX.length).keys()];
 	rotationRateY = [...Array(radiiY.length).keys()];
 
@@ -78,6 +82,10 @@ function setup() {
 	//Initialisation
 	initCircleCentersX(offsetX, centersX, radiiX, rotationRateX, phasesX);
 	initCircleCentersY(offsetY, centersY, radiiY, rotationRateY, phasesY);
+
+	//Buttons
+	nSlider = createSlider(0, 255, 100);
+	nSlider.position(20, 20);	
 }
 
 function draw() {
@@ -93,7 +101,7 @@ function draw() {
 	drawCurve(drawing, colors);
 
 	//Increment 
-	t += deltaTime/500;
+	t += deltaTime/(2000/step);
 
 	//Update
 	updateCircleCenters(centersX, radiiX, rotationRateX, phasesX, t);
