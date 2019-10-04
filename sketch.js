@@ -23,6 +23,7 @@ drawing[1] = [];
 var colors = [];
 var colorsX = [];
 var colorsY = [];
+var styles =[];
 
 var stringPara;
 var para = [];
@@ -46,14 +47,19 @@ function setup() {
 	step = 2.; 
 
 	//Graphics
-	colorsX["circle"] = 150;
+	colorsX["circle"] = 100;
 	colorsX["segment"] = 255;
-	colorsX["axis"] = 255;
+	colorsX["axis"] = 100;
 	colorsY = colorsX;
 	colors["drawing"] = [255, 0, 0];
 	colors["background"] = 0;
 	colors["text"] = 255;
-	strokeWeight(3);
+	colors["point"] = [255, 0, 0];
+	styles["strokeWeightDefault"] = 1;
+	styles["strokeWeightCurve"] = 3;
+	styles["strokeWeightSegment"] = 1.5;
+	styles["strokeWeightPoint"] = 5;
+	strokeWeight(styles.strokeWeightDefault);
 	textSize(20);
 	textAlign(CENTER, CENTER);
 
@@ -74,8 +80,8 @@ function setup() {
 	offsetX = width/2;
 	offsetY = 2*height/3;
 	for (i=0; i<radiiX.length; i++) {
-		radiiX[i] = radiiX[i]*2.*s;
-		radiiY[i] = radiiY[i]*s;
+		radiiX[i] = radiiX[i]*2.5*s;
+		radiiY[i] = radiiY[i]/5*s;
 	}
 
 	rotationRateX = [...Array(radiiX.length).keys()];
@@ -138,7 +144,7 @@ function draw() {
 	drawBunchY(centersY, radiiY, rotationRateY, phasesY, colorsY, n);
 	
 	//Draw curve 
-	drawCurve(drawing, colors);
+	drawCurve(drawing, colors, styles);
 
 	//Text
 	fill(colors.text);
