@@ -91,12 +91,34 @@ function setup() {
 
 	//DOM
 	//slide bar (Fourrier series max rank)
-	nSlider = createSlider(0, 255, 255);
+	nSlider = createSlider(2, radiiX.length, radiiX.length);
 	nSlider.position(width/4, 20);	
 	//stop button
-	button = createButton('stop');
-  	button.position(20, 20);
-  	button.mousePressed(() => {noLoop()});
+	buttonStop = createButton('stop');
+  	buttonStop.position(20, 20);
+  	buttonStop.mousePressed(() => {noLoop()});
+	//play button
+	buttonPlay = createButton('play');
+  	buttonPlay.position(100, 20);
+  	buttonPlay.mousePressed(() => {loop()});
+	//play plus 
+	buttonPlus = createButton('+');
+  	buttonPlus.position(nSlider.x+nSlider.width+10, nSlider.y);
+  	buttonPlus.mousePressed(() => {
+		if (n < radiiX.length) {
+			n+=1;
+			nSlider.value(n);
+		}
+	});
+	//play minus 
+	buttonPlus = createButton('-');
+  	buttonPlus.position(nSlider.x-buttonPlus.width-10, nSlider.y);
+  	buttonPlus.mousePressed(() => {
+		if (n > 1) {
+			n-=1;
+			nSlider.value(n);
+		}
+	});
 	
 }
 
@@ -115,8 +137,7 @@ function draw() {
 	//Text
 	fill(colors.text);
 	stroke(colors.background);
-	let nText = 'n = ' + (n-1);
-	text(nText, width/4, 50);
+	text('n = '+(nSlider.value()-1), width/4, 50);
 
 	//Increment 
 	t += deltaTime/(2000/step);
@@ -127,13 +148,7 @@ function draw() {
 	updateCurve(drawing, offsetX+radiiX[0], offsetY, radiiX, radiiY, phasesX, phasesY, t, n);
 
 	//Update parameters
-	slideVal = nSlider.value();
-	N = radiiX.length;
-	n = max(round(slideVal/255*N),2)
-}
-
-function keyPressed() {
-	noLoop();
+	n = nSlider.value();
 }
 
 function mousePressed() {
