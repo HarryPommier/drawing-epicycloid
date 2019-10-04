@@ -34,14 +34,15 @@ var n;
 
 
 function preload() {
-  	stringPara = loadStrings('assets/elephant.txt', pickString);
+  	//stringPara = loadStrings('assets/elephant.txt', pickString);
+  	stringPara = loadStrings('assets/elephant2.txt', pickString);
   	//stringPara = loadStrings('assets/zenika.txt', pickString);
   	//stringPara = loadStrings('assets/flower.txt', pickString);
 }
 
 function setup() {
 	//Increment
-	t= 0;
+	t = 0;
 	//Step ~[0.5 ; 5] (1 seems usually good enough)
 	step = 2.; 
 
@@ -58,6 +59,7 @@ function setup() {
 	textAlign(CENTER, CENTER);
 
 	//General setup
+	rotate(PI);
 	createCanvas(windowWidth, windowHeight);
 	background(colors.background);
 	frameRate(30);
@@ -69,11 +71,11 @@ function setup() {
 
 	//Scale radii
 	//TODO implement autoscale
-	s = 500;
+	s = 200;
 	offsetX = width/2;
 	offsetY = 2*height/3;
 	for (i=0; i<radiiX.length; i++) {
-		radiiX[i] = radiiX[i]*s;
+		radiiX[i] = radiiX[i]*2.*s;
 		radiiY[i] = radiiY[i]*s;
 	}
 
@@ -90,7 +92,7 @@ function setup() {
 	//DOM
 	//slide bar (Fourrier series max rank)
 	nSlider = createSlider(0, 255, 255);
-	nSlider.position(width/2, 20);	
+	nSlider.position(width/4, 20);	
 	//stop button
 	button = createButton('stop');
   	button.position(20, 20);
@@ -114,7 +116,7 @@ function draw() {
 	fill(colors.text);
 	stroke(colors.background);
 	let nText = 'n = ' + (n-1);
-	text(nText, width/2, 50);
+	text(nText, width/4, 50);
 
 	//Increment 
 	t += deltaTime/(2000/step);
