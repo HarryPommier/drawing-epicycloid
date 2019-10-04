@@ -52,8 +52,10 @@ function setup() {
 	colorsY = colorsX;
 	colors["drawing"] = [255, 0, 0];
 	colors["background"] = 0;
+	colors["text"] = 255;
 	strokeWeight(3);
-	textSize(100);
+	textSize(20);
+	textAlign(CENTER, CENTER);
 
 	//General setup
 	createCanvas(windowWidth, windowHeight);
@@ -85,29 +87,34 @@ function setup() {
 	initCircleCentersX(offsetX, centersX, radiiX, rotationRateX, phasesX);
 	initCircleCentersY(offsetY, centersY, radiiY, rotationRateY, phasesY);
 
-	//Buttons
+	//DOM
 	//slide bar (Fourrier series max rank)
-	nSlider = createSlider(0, 255, 100);
+	nSlider = createSlider(0, 255, 255);
 	nSlider.position(width/2, 20);	
-
-	//stop 
+	//stop button
 	button = createButton('stop');
   	button.position(20, 20);
   	button.mousePressed(() => {noLoop()});
+	
 }
 
 function draw() {
 	background(colors.background);
 
-
 	//Draw bunch X 
-	drawBunchX(centersX, radiiX, rotationRateX, phasesX, colorsX);
+	drawBunchX(centersX, radiiX, rotationRateX, phasesX, colorsX, n);
 
 	//Draw bunch Y
-	drawBunchY(centersY, radiiY, rotationRateY, phasesY, colorsY);
+	drawBunchY(centersY, radiiY, rotationRateY, phasesY, colorsY, n);
 	
 	//Draw curve 
 	drawCurve(drawing, colors);
+
+	//Text
+	fill(colors.text);
+	stroke(colors.background);
+	let nText = 'n = ' + (n-1);
+	text(nText, width/2, 50);
 
 	//Increment 
 	t += deltaTime/(2000/step);
@@ -128,6 +135,12 @@ function keyPressed() {
 }
 
 function mousePressed() {
+	drawing = [];
+	drawing[0] = [];
+	drawing[1] = [];
+}
+
+function mouseReleased() {
 	drawing = [];
 	drawing[0] = [];
 	drawing[1] = [];
