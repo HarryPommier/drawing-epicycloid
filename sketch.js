@@ -51,7 +51,7 @@ function setup() {
 	colorsX["axis"] = 255;
 	colorsY = colorsX;
 	colors["drawing"] = [255, 0, 0];
-	colors["background"] = 100;
+	colors["background"] = 0;
 	strokeWeight(3);
 	textSize(100);
 
@@ -86,15 +86,19 @@ function setup() {
 	initCircleCentersY(offsetY, centersY, radiiY, rotationRateY, phasesY);
 
 	//Buttons
+	//slide bar (Fourrier series max rank)
 	nSlider = createSlider(0, 255, 100);
-	nSlider.position(20, 20);	
+	nSlider.position(width/2, 20);	
+
+	//stop 
+	button = createButton('stop');
+  	button.position(20, 20);
+  	button.mousePressed(() => {noLoop()});
 }
 
 function draw() {
 	background(colors.background);
-	//n = nSlider.value();
-	n = 9;
-	//TODO print n besides bar + update circles
+
 
 	//Draw bunch X 
 	drawBunchX(centersX, radiiX, rotationRateX, phasesX, colorsX);
@@ -102,20 +106,31 @@ function draw() {
 	//Draw bunch Y
 	drawBunchY(centersY, radiiY, rotationRateY, phasesY, colorsY);
 	
-	//Draw drawing
+	//Draw curve 
 	drawCurve(drawing, colors);
 
 	//Increment 
 	t += deltaTime/(2000/step);
 
-	//Update
+	//Update drawing
 	updateCircleCenters(centersX, radiiX, rotationRateX, phasesX, t);
 	updateCircleCenters(centersY, radiiY, rotationRateY, phasesY, t);
 	updateCurve(drawing, offsetX+radiiX[0], offsetY, radiiX, radiiY, phasesX, phasesY, t, n);
+
+	//Update parameters
+	slideVal = nSlider.value();
+	N = radiiX.length;
+	n = max(round(slideVal/255*N),2)
 }
 
 function keyPressed() {
 	noLoop();
+}
+
+function mousePressed() {
+	drawing = [];
+	drawing[0] = [];
+	drawing[1] = [];
 }
 
 function windowResized() {
