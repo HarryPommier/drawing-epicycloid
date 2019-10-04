@@ -41,6 +41,7 @@ function preload() {
 }
 
 function setup() {
+	print(para)
 	//Increment
 	t = 0;
 	//Step ~[0.5 ; 5] (1 seems usually good enough)
@@ -71,6 +72,7 @@ function setup() {
 
 
 	//Epicycloid parameters
+	
 	radiiX = para[0];
 	radiiY = para[2];
 
@@ -79,6 +81,8 @@ function setup() {
 	s = 200;
 	offsetX = width/2;
 	offsetY = 2*height/3;
+	print(radiiX)
+	print(radiiY)
 	for (i=0; i<radiiX.length; i++) {
 		radiiX[i] = radiiX[i]*2.5*s;
 		radiiY[i] = radiiY[i]/5*s;
