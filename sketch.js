@@ -35,9 +35,8 @@ var n;
 
 function preload() {
   	//stringPara = loadStrings('assets/elephant.txt', pickString);
-  	stringPara = loadStrings('assets/elephant2.txt', pickString);
-  	//stringPara = loadStrings('assets/zenika.txt', pickString);
-  	//stringPara = loadStrings('assets/flower.txt', pickString);
+  	stringPara = loadStrings('assets/zenika.txt', pickString);
+  	//stringPara = loadStrings('assets/custom.txt', pickString);
 }
 
 function setup() {
@@ -119,6 +118,13 @@ function setup() {
 			nSlider.value(n);
 		}
 	});
+	//TODO Drawing selector
+	//sel = createSelect();
+	//sel.position(20, 50);
+	//sel.option('elephant');
+	//sel.option('zenika');
+	//sel.option('custom');
+	//sel.changed(mySelectEvent);
 	
 }
 
