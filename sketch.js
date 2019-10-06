@@ -36,7 +36,8 @@ var n;
 
 function preload() {
   	//stringPara = loadStrings('assets/elephant.txt', pickString);
-  	stringPara = loadStrings('assets/zenika.txt', pickString);
+  	stringPara = loadStrings('assets/elephant2.txt', pickString);
+  	//stringPara = loadStrings('assets/zenika.txt', pickString);
   	//stringPara = loadStrings('assets/custom.txt', pickString);
 }
 
@@ -78,14 +79,14 @@ function setup() {
 
 	//Scale radii
 	//TODO implement autoscale
-	s = 200;
+	s = 400;
 	offsetX = width/2;
 	offsetY = 2*height/3;
 	print(radiiX)
 	print(radiiY)
 	for (i=0; i<radiiX.length; i++) {
-		radiiX[i] = radiiX[i]*2.5*s;
-		radiiY[i] = radiiY[i]/5*s;
+		radiiX[i] = radiiX[i]*s;
+		radiiY[i] = radiiY[i]*s;
 	}
 
 	rotationRateX = [...Array(radiiX.length).keys()];
