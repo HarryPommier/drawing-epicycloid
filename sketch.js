@@ -79,7 +79,8 @@ function setup() {
 
 	//Scale radii
 	//TODO implement autoscale
-	s = 400;
+	//s = 200; //zenika
+	s = 400; //elephant
 	offsetX = width/2;
 	offsetY = 2*height/3;
 	print(radiiX)
@@ -101,7 +102,7 @@ function setup() {
 
 	//DOM
 	//slide bar (Fourrier series max rank)
-	nSlider = createSlider(2, radiiX.length, radiiX.length);
+	nSlider = createSlider(2, radiiX.length, 2);
 	nSlider.position(width/4, 20);	
 	//stop button
 	buttonStop = createButton('stop');
