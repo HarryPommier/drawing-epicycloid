@@ -12,18 +12,27 @@
   </a>
 </p>
 
-> Visualization of elephant approximation by epicycloids.
+> Drawing with epicycloids. P5.js implementation.
 
 ## Usage
 
-View in a browser with (e.g.):
+```
+npm i http-server
+```
 
 ```
 http-server
 ```
 
-## Screenshots
+## Screen
 
+![](/screen/screen.gif)
+
+
+
+## Inspiration
+
+http://eljjdx.canalblog.com/archives/2018/04/15/36320654.html
 
 
 ## Author
