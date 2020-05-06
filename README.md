@@ -43,9 +43,6 @@ http://eljjdx.canalblog.com/archives/2018/04/15/36320654.html
 * Github: [@HarryPommier](https://github.com/HarryPommier)
 * LinkedIn: [@harry-pommier-phd-a3911145](https://linkedin.com/in/harry-pommier-phd-a3911145)
 
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/HarryPommier/proust-generator/issues). 
 
 ## Show your support
 
